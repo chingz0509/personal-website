@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexprinter Creator Fund 参考页</title>
+    <meta
+      name="description"
+      content="Nexprinter Creator Fund 页面视觉复刻参考。"
+    />
+    <style>
+      :root {
+        --canvas: #f7f7f7;
+        --ink: #1b1b1b;
+        --focus: #3f5ff0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+        background: var(--canvas);
+      }
+
+      body {
+        overflow-x: hidden;
+        font-family: Arial, "PingFang SC", sans-serif;
+      }
+
+      .reference-page {
+        width: 100%;
+        min-height: 100svh;
+        display: grid;
+        place-items: start center;
+        background: var(--canvas);
+      }
+
+      .stage {
+        position: relative;
+        width: min(100vw, 2512px);
+        aspect-ratio: 2512 / 1182;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .stage-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .cleanup {
+        position: absolute;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .cleanup-logo,
+      .cleanup-rail {
+        background-color: #f7f7f7;
+        background-image:
+          linear-gradient(rgba(32, 32, 32, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(32, 32, 32, 0.045) 1px, transparent 1px);
+        background-size: 31px 31px;
+      }
+
+      .cleanup-logo {
+        top: 0;
+        left: 0;
+        width: 8.5%;
+        height: 7.2%;
+      }
+
+      .cleanup-rail {
+        top: 0;
+        right: 0;
+        width: 8.7%;
+        height: 81.5%;
+      }
+
+      .cleanup-bottom-copy {
+        right: 10%;
+        bottom: 0;
+        left: 10%;
+        height: 17.2%;
+        background: #f7f7f7;
+      }
+
+      /* Invisible interaction map: it preserves the screenshot while making the prototype testable. */
+      .hotspot {
+        position: absolute;
+        display: block;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .hotspot:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 5px;
+      }
+
+      .claim-hotspot {
+        top: 28.6%;
+        left: 39.7%;
+        width: 20.2%;
+        height: 6.8%;
+      }
+
+      @media (max-width: 720px) {
+        .stage {
+          width: 100vw;
+          min-height: auto;
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .hotspot:active {
+          transform: scale(0.97);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="reference-page" aria-label="Nexprinter Creator Fund 页面参考复刻">
+      <div class="stage">
+        <img
+          class="stage-image"
+          src="assets/nexprinter-reference.png"
+          alt="Nexprinter Creator Fund 页面视觉参考"
+          width="2512"
+          height="1182"
+        />
+
+        <div class="cleanup cleanup-logo" aria-hidden="true"></div>
+        <div class="cleanup cleanup-rail" aria-hidden="true"></div>
+        <div class="cleanup cleanup-bottom-copy" aria-hidden="true"></div>
+        <a class="hotspot claim-hotspot" href="#milestones" aria-label="Upload and claim a starter chest"></a>
+      </div>
+
+      <span id="milestones" hidden></span>
+    </main>
+  </body>
+</html>
