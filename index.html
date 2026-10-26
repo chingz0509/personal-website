@@ -383,6 +383,20 @@
           background 180ms var(--ease);
       }
 
+      .phrase-picker::after {
+        content: "↻";
+        width: 0;
+        overflow: hidden;
+        color: rgba(28, 28, 28, 0.34);
+        font-size: 15px;
+        opacity: 0;
+        transform: rotate(-45deg);
+        transition:
+          width 180ms var(--ease-out),
+          opacity 180ms var(--ease-out),
+          transform 220ms var(--ease-out);
+      }
+
       .hero-identity {
         margin: 18px 0 0;
         color: rgba(28, 28, 28, 0.58);
@@ -1124,7 +1138,26 @@
       }
 
       .tools-section {
+        position: relative;
         background: var(--paper);
+      }
+
+      .tools-kicker {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 2;
+        margin: 0;
+        padding: 10px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 999px;
+        background: #111111;
+        color: rgba(255, 255, 255, 0.76);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+        transform: translate(-50%, -50%);
       }
 
       .tools-section .section-head {
@@ -1133,86 +1166,34 @@
 
       .tool-entry {
         display: grid;
-        grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+        grid-template-columns: minmax(0, 0.36fr) minmax(0, 0.64fr);
         align-items: stretch;
+        gap: clamp(24px, 3vw, 40px);
+        padding: clamp(24px, 2.5vw, 32px);
         overflow: hidden;
         border: 1px solid rgba(28, 28, 28, 0.09);
         border-radius: 12px;
         background: #f5f5f3;
-        box-shadow: 0 18px 48px rgba(28, 28, 28, 0.09);
+        box-shadow: 0 8px 28px rgba(28, 28, 28, 0.035);
       }
 
       .tool-entry + .tool-entry {
         margin-top: 28px;
       }
 
-      .tool-entry-featured {
-        grid-template-columns: 1fr;
-        padding: clamp(24px, 3vw, 42px);
-        background: #f1f1ef;
-      }
-
-      .tool-entry-featured .tool-entry-head {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        grid-template-areas:
-          "number title action"
-          ". description action";
-        column-gap: 22px;
-        row-gap: 8px;
-        align-items: start;
-        padding: 0;
-      }
-
-      .tool-entry-featured .tool-number {
-        grid-area: number;
-      }
-
-      .tool-entry-featured .tool-title {
-        grid-area: title;
-      }
-
-      .tool-entry-featured .tool-description {
-        grid-area: description;
-        max-width: 62ch;
-        margin-top: 0;
-      }
-
       .tool-entry-featured .tool-open {
-        grid-area: action;
-        align-self: center;
-        margin-top: 0;
-      }
-
-      .tool-entry-featured .tool-preview-link {
-        width: 100%;
-        margin: 30px 0 0;
-        aspect-ratio: 16 / 7;
-        border: 1px solid rgba(28, 28, 28, 0.08);
-        box-shadow: 0 20px 48px rgba(28, 28, 28, 0.08);
-      }
-
-      .tool-entry-compact {
-        width: min(900px, 84%);
-        margin-left: auto;
-        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-      }
-
-      .tool-entry-compact .tool-entry-head {
-        padding: 32px clamp(18px, 2.4vw, 32px);
-      }
-
-      .tool-entry-compact .tool-preview-link {
-        margin: 28px 28px 28px 0;
+        border-color: var(--green);
+        background: var(--green);
+        color: #ffffff;
       }
 
       .tool-entry-head {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+        gap: 12px;
         min-width: 0;
-        padding: 48px clamp(18px, 2.5vw, 36px);
+        padding: 8px 0;
       }
 
       .tool-number,
@@ -1225,22 +1206,23 @@
       }
 
       .tool-number {
-        padding-top: 0;
+        margin-bottom: 8px;
       }
 
       .tool-title h3 {
         margin: 0 0 7px;
         color: var(--ink);
-        font-size: clamp(20px, 2vw, 30px);
+        font-size: clamp(22px, 2.1vw, 28px);
         font-weight: 650;
-        line-height: 1.15;
+        line-height: 1.3;
         letter-spacing: 0.01em;
+        text-wrap: balance;
         transition: transform 240ms var(--ease-out);
       }
 
       .tool-description {
-        max-width: 31ch;
-        margin: 6px 0 0;
+        max-width: 100%;
+        margin: 4px 0 24px;
         color: rgba(28, 28, 28, 0.58);
         font-size: 15px;
         line-height: 1.75;
@@ -1269,10 +1251,13 @@
 
       .tool-preview-link {
         position: relative;
+        align-self: center;
         min-width: 0;
-        margin: 48px 48px 48px 0;
-        aspect-ratio: 269 / 180;
+        width: 100%;
+        margin: 0;
+        aspect-ratio: 8 / 5;
         overflow: hidden;
+        border: 1px solid rgba(28, 28, 28, 0.08);
         border-radius: 8px;
         background: #ffffff;
         isolation: isolate;
@@ -1317,13 +1302,14 @@
         transition: transform 280ms var(--ease-out);
       }
 
-      .tool-preview-frame {
+      .tool-preview-image {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
-        border: 0;
         background: #ffffff;
+        object-fit: contain;
+        object-position: center;
         pointer-events: none;
         transition: transform 280ms var(--ease-out);
       }
@@ -1370,6 +1356,13 @@
           background: #fff;
         }
 
+        .phrase-picker:hover::after,
+        .phrase-picker:focus-visible::after {
+          width: 16px;
+          opacity: 1;
+          transform: rotate(0deg);
+        }
+
         .pass-card:hover {
           transform: translateY(-4px) rotate(-0.7deg);
           box-shadow:
@@ -1392,7 +1385,7 @@
           transform: translateX(6px);
         }
 
-        .tool-preview-link:hover :is(.tool-preview-video, .tool-preview-frame) {
+        .tool-preview-link:hover :is(.tool-preview-video, .tool-preview-image) {
           transform: scale(1.008);
         }
 
@@ -1511,53 +1504,21 @@
 
         .tool-entry {
           grid-template-columns: 1fr;
-        }
-
-        .tool-entry-featured {
-          padding: 20px;
-        }
-
-        .tool-entry-featured .tool-entry-head {
-          grid-template-columns: auto minmax(0, 1fr);
-          grid-template-areas:
-            "number title"
-            "description description"
-            "action action";
-        }
-
-        .tool-entry-featured .tool-open {
-          justify-self: start;
-          margin-top: 10px;
-        }
-
-        .tool-entry-featured .tool-preview-link {
-          margin-top: 22px;
-          aspect-ratio: 4 / 3;
-        }
-
-        .tool-entry-compact {
-          width: 100%;
-          margin-left: 0;
-        }
-
-        .tool-entry-compact .tool-entry-head {
-          padding: 20px;
-        }
-
-        .tool-entry-compact .tool-preview-link {
-          margin: 0;
+          gap: 24px;
+          padding: 24px;
         }
 
         .tool-entry-head {
-          padding: 20px;
+          padding: 0;
         }
 
         .tool-description {
           max-width: 52ch;
+          margin-bottom: 8px;
         }
 
-        .tool-preview-link {
-          margin: 0;
+        .tool-open {
+          margin-top: 4px;
         }
 
       }
@@ -1654,6 +1615,86 @@
 
         .section {
           padding: 72px 20px;
+        }
+
+        .site > .sticker-section {
+          min-height: 660px;
+        }
+
+        .sticker-reference-frame {
+          width: 100%;
+          height: 660px;
+          aspect-ratio: auto;
+        }
+
+        .sticker-person-placement {
+          top: 7%;
+          left: 50%;
+          height: 27%;
+        }
+
+        .sticker-deck {
+          top: 32%;
+          left: 6%;
+          width: 88%;
+          height: 44%;
+        }
+
+        .sticker-deck::before {
+          transform: translate(8px, 9px);
+        }
+
+        .sticker-deck::after {
+          transform: translate(4px, 5px);
+        }
+
+        .sticker-float-bomb,
+        .sticker-float-brush,
+        .sticker-float-price,
+        .sticker-float-pin,
+        .sticker-float-floppy,
+        .sticker-float-character {
+          display: none;
+        }
+
+        .sticker-float-laptop {
+          top: 23%;
+          left: -2%;
+          width: 22%;
+        }
+
+        .sticker-float-figma {
+          top: 15%;
+          left: 84%;
+          width: 11%;
+        }
+
+        .sticker-float-marker {
+          top: 43%;
+          left: -1%;
+          width: 11%;
+        }
+
+        .sticker-float-terminal {
+          top: 62%;
+          left: 83%;
+          width: 20%;
+        }
+
+        .sticker-float-sword {
+          top: 82%;
+          left: 5%;
+          width: 11%;
+        }
+
+        .sticker-tag-black {
+          top: 1%;
+          left: 4%;
+        }
+
+        .sticker-tag-duo {
+          top: 84%;
+          left: 59%;
         }
 
         .sticker-deck-toolbar {
@@ -1783,7 +1824,7 @@
           <div class="intro-line">
             <span>This is</span>
             <span class="mini-avatar">
-              <img src="assets/profile/avatar-chengzhuo.png" alt="程卓头像" width="512" height="512" />
+              <img src="assets/profile/avatar-chengzhuo.webp" alt="程卓头像" width="512" height="512" />
             </span>
             <strong>程卓。</strong>
             <span>此刻，</span>
@@ -1791,7 +1832,7 @@
             <span>我正在</span>
           </div>
 
-          <button class="phrase-picker" type="button" id="phraseButton">
+          <button class="phrase-picker" type="button" id="phraseButton" aria-label="切换此刻状态">
             <span id="phraseText">把复杂系统变得更清楚</span>
           </button>
 
@@ -1806,77 +1847,77 @@
         <div class="sticker-reference-frame">
           <img
             class="sticker-float sticker-float-bomb"
-            src="assets/stickers/pixel-bomb.png"
+            src="assets/stickers/pixel-bomb.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-figma"
-            src="assets/stickers/pixel-figma.png"
+            src="assets/stickers/pixel-figma.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-brush"
-            src="assets/stickers/pixel-brush.png"
+            src="assets/stickers/pixel-brush.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-marker"
-            src="assets/stickers/pixel-marker.png"
+            src="assets/stickers/pixel-marker.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-sword"
-            src="assets/stickers/pixel-sword.png"
+            src="assets/stickers/pixel-sword.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-pin"
-            src="assets/stickers/pixel-pin.png"
+            src="assets/stickers/pixel-pin.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-laptop"
-            src="assets/stickers/fridge-laptop.png"
+            src="assets/stickers/fridge-laptop.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-character"
-            src="assets/stickers/fridge-character.png"
+            src="assets/stickers/fridge-character.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-terminal"
-            src="assets/stickers/fridge-terminal.png"
+            src="assets/stickers/fridge-terminal.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-price"
-            src="assets/stickers/fridge-price.png"
+            src="assets/stickers/fridge-price.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
           />
           <img
             class="sticker-float sticker-float-floppy"
-            src="assets/stickers/fridge-floppy.png"
+            src="assets/stickers/fridge-floppy.webp"
             alt=""
             aria-hidden="true"
             loading="lazy"
@@ -1898,7 +1939,7 @@
 
           <div class="sticker-person-placement">
             <img
-              src="assets/sticker-person-card.png"
+              src="assets/sticker-person-card.webp"
               alt="程卓人物贴纸"
               width="768"
               height="901"
@@ -1955,6 +1996,7 @@
       </section>
 
       <section id="tools" class="section tools-section" aria-labelledby="toolsTitle">
+        <p class="tools-kicker">FROM IDEAS TO THINGS · 下面是一些做出来的小东西</p>
         <div class="section-frame">
           <div class="section-head">
             <h2 id="toolsTitle">小工具</h2>
@@ -1992,14 +2034,14 @@
               rel="noreferrer"
               aria-label="查看 OnePage 公开页面示例"
             ></a>
-            <iframe
-              class="tool-preview-frame"
-              src="https://onepage.chengzhuo.work/#/p/OokQhQvxO8Na"
-              title="OnePage 公开页面预览"
+            <img
+              class="tool-preview-image"
+              src="assets/tools/onepage-preview.webp"
+              alt="OnePage 公开页面示例"
               loading="lazy"
-              scrolling="no"
-              tabindex="-1"
-            ></iframe>
+              width="1440"
+              height="900"
+            />
             <span class="tool-preview-cue" aria-hidden="true">&#8599;</span>
           </div>
           </article>
@@ -2035,13 +2077,12 @@
             ></a>
             <video
               class="tool-preview-video"
-              src="assets/tools/privacy-mask-demo.m4v"
-              poster="assets/tools/privacy-mask-demo.m4v.png"
-              autoplay
+              data-src="assets/tools/privacy-mask-demo.m4v"
+              poster="assets/tools/privacy-mask-preview.webp"
               muted
               loop
               playsinline
-              preload="metadata"
+              preload="none"
               data-demo-video
               aria-hidden="true"
             ></video>
@@ -2090,9 +2131,10 @@
       const stickerDeckState = StickerDeck.createState(StickerDeck.cards);
       const stickerHitTargets = [...document.querySelectorAll(".sticker-hit")];
 
+      const visibleDemoVideos = new Set();
       const syncDemoMotion = () => {
         demoVideos.forEach((video) => {
-          if (reducedMotionQuery.matches) {
+          if (reducedMotionQuery.matches || !visibleDemoVideos.has(video)) {
             video.pause();
           } else {
             video.play().catch(() => {});
@@ -2100,7 +2142,26 @@
         });
       };
 
-      syncDemoMotion();
+      const demoVideoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+              visibleDemoVideos.add(video);
+              if (!video.src && video.dataset.src) {
+                video.src = video.dataset.src;
+                video.load();
+              }
+            } else {
+              visibleDemoVideos.delete(video);
+            }
+          });
+          syncDemoMotion();
+        },
+        { rootMargin: "180px 0px" },
+      );
+
+      demoVideos.forEach((video) => demoVideoObserver.observe(video));
       reducedMotionQuery.addEventListener?.("change", syncDemoMotion);
       let phraseIndex = 0;
       let stickerDeckTouchStartX = 0;
