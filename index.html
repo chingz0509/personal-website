@@ -383,12 +383,6 @@
           background 180ms var(--ease);
       }
 
-      .tiny-caption {
-        margin: 12px 0 0;
-        color: rgba(28, 28, 28, 0.68);
-        font-size: 13px;
-      }
-
       .hero-identity {
         margin: 18px 0 0;
         color: rgba(28, 28, 28, 0.58);
@@ -1148,6 +1142,70 @@
         box-shadow: 0 18px 48px rgba(28, 28, 28, 0.09);
       }
 
+      .tool-entry + .tool-entry {
+        margin-top: 28px;
+      }
+
+      .tool-entry-featured {
+        grid-template-columns: 1fr;
+        padding: clamp(24px, 3vw, 42px);
+        background: #f1f1ef;
+      }
+
+      .tool-entry-featured .tool-entry-head {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        grid-template-areas:
+          "number title action"
+          ". description action";
+        column-gap: 22px;
+        row-gap: 8px;
+        align-items: start;
+        padding: 0;
+      }
+
+      .tool-entry-featured .tool-number {
+        grid-area: number;
+      }
+
+      .tool-entry-featured .tool-title {
+        grid-area: title;
+      }
+
+      .tool-entry-featured .tool-description {
+        grid-area: description;
+        max-width: 62ch;
+        margin-top: 0;
+      }
+
+      .tool-entry-featured .tool-open {
+        grid-area: action;
+        align-self: center;
+        margin-top: 0;
+      }
+
+      .tool-entry-featured .tool-preview-link {
+        width: 100%;
+        margin: 30px 0 0;
+        aspect-ratio: 16 / 7;
+        border: 1px solid rgba(28, 28, 28, 0.08);
+        box-shadow: 0 20px 48px rgba(28, 28, 28, 0.08);
+      }
+
+      .tool-entry-compact {
+        width: min(900px, 84%);
+        margin-left: auto;
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      }
+
+      .tool-entry-compact .tool-entry-head {
+        padding: 32px clamp(18px, 2.4vw, 32px);
+      }
+
+      .tool-entry-compact .tool-preview-link {
+        margin: 28px 28px 28px 0;
+      }
+
       .tool-entry-head {
         display: flex;
         flex-direction: column;
@@ -1259,6 +1317,17 @@
         transition: transform 280ms var(--ease-out);
       }
 
+      .tool-preview-frame {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #ffffff;
+        pointer-events: none;
+        transition: transform 280ms var(--ease-out);
+      }
+
       .site :where(a, button, [tabindex="0"]):focus-visible {
         outline: 2px solid currentColor;
         outline-offset: 3px;
@@ -1323,7 +1392,7 @@
           transform: translateX(6px);
         }
 
-        .tool-preview-link:hover .tool-preview-video {
+        .tool-preview-link:hover :is(.tool-preview-video, .tool-preview-frame) {
           transform: scale(1.008);
         }
 
@@ -1442,6 +1511,41 @@
 
         .tool-entry {
           grid-template-columns: 1fr;
+        }
+
+        .tool-entry-featured {
+          padding: 20px;
+        }
+
+        .tool-entry-featured .tool-entry-head {
+          grid-template-columns: auto minmax(0, 1fr);
+          grid-template-areas:
+            "number title"
+            "description description"
+            "action action";
+        }
+
+        .tool-entry-featured .tool-open {
+          justify-self: start;
+          margin-top: 10px;
+        }
+
+        .tool-entry-featured .tool-preview-link {
+          margin-top: 22px;
+          aspect-ratio: 4 / 3;
+        }
+
+        .tool-entry-compact {
+          width: 100%;
+          margin-left: 0;
+        }
+
+        .tool-entry-compact .tool-entry-head {
+          padding: 20px;
+        }
+
+        .tool-entry-compact .tool-preview-link {
+          margin: 0;
         }
 
         .tool-entry-head {
@@ -1691,7 +1795,6 @@
             <span id="phraseText">把复杂系统变得更清楚</span>
           </button>
 
-          <p class="tiny-caption" id="phraseCaption">点击切换一句此刻状态</p>
           <p class="hero-identity">UX × AI 产品设计 · 10 年以上经验 · 服务过 B 端 / C 端产品</p>
           <p class="wander">你可以自己随便逛逛</p>
           <a class="down" href="#about" aria-label="向下浏览">⌄</a>
@@ -1860,9 +1963,50 @@
             </p>
           </div>
 
-          <article class="tool-entry">
+          <article class="tool-entry tool-entry-featured">
           <div class="tool-entry-head">
             <span class="tool-number">01</span>
+            <div class="tool-title">
+              <h3>OnePage · 你的个人目录</h3>
+              <span>WEB PRODUCT / 2026</span>
+            </div>
+            <p class="tool-description">
+              集中展示你的工作、作品和重要链接，快速创建一张可以直接分享的个人目录，让别人不只知道你做什么，也更快认识你。
+            </p>
+            <a
+              class="tool-open"
+              href="https://onepage.chengzhuo.work/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>创建我的 OnePage</span>
+              <span aria-hidden="true">&#8599;</span>
+            </a>
+          </div>
+
+          <div class="tool-preview-link">
+            <a
+              class="tool-preview-hit"
+              href="https://onepage.chengzhuo.work/#/p/OokQhQvxO8Na"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="查看 OnePage 公开页面示例"
+            ></a>
+            <iframe
+              class="tool-preview-frame"
+              src="https://onepage.chengzhuo.work/#/p/OokQhQvxO8Na"
+              title="OnePage 公开页面预览"
+              loading="lazy"
+              scrolling="no"
+              tabindex="-1"
+            ></iframe>
+            <span class="tool-preview-cue" aria-hidden="true">&#8599;</span>
+          </div>
+          </article>
+
+          <article class="tool-entry tool-entry-compact">
+          <div class="tool-entry-head">
+            <span class="tool-number">02</span>
             <div class="tool-title">
               <h3>隐私截图打码器</h3>
               <span>WEB TOOL / 2026</span>
