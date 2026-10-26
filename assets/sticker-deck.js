@@ -49,10 +49,6 @@
       eyebrow: "08 / PRINCIPLE",
       title: "复杂越具体，设计越有力。",
       body: "设计不仅要看起来成立，也要真正服务任务、系统和人。",
-      action: {
-        label: "继续看作品",
-        href: "#projects",
-      },
     },
   ];
 

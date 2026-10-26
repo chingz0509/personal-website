@@ -6,7 +6,7 @@
     <title>程卓 - 设计师个人网站</title>
     <meta
       name="description"
-      content="程卓的设计师个人网站：个人介绍、作品集、AI 项目和工具入口。"
+      content="程卓的设计师个人网站：个人介绍、AI 项目和工具入口。"
     />
     <style>
       :root {
@@ -128,6 +128,7 @@
       .brand {
         line-height: 1.05;
         min-width: 128px;
+        padding-left: clamp(14px, 1.4vw, 24px);
       }
 
       .brand span {
@@ -150,6 +151,7 @@
         font-size: 22px;
         font-weight: 760;
         letter-spacing: 0.02em;
+        white-space: nowrap;
         transition:
           margin 260ms var(--ease),
           font-size 260ms var(--ease),
@@ -625,6 +627,31 @@
         left: 24%;
         width: 52%;
         height: 43%;
+        isolation: isolate;
+      }
+
+      .sticker-deck::before,
+      .sticker-deck::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 24px;
+        background: #101010;
+        pointer-events: none;
+        transform-origin: center;
+      }
+
+      .sticker-deck::before {
+        z-index: 1;
+        opacity: 0.48;
+        transform: translate(16px, 18px);
+      }
+
+      .sticker-deck::after {
+        z-index: 2;
+        opacity: 0.76;
+        transform: translate(8px, 9px);
       }
 
       .sticker-deck-card {
@@ -732,21 +759,6 @@
         line-height: 1.45;
       }
 
-      .sticker-deck-action {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 112px;
-        min-height: 34px;
-        margin-top: 16px;
-        border-radius: 999px;
-        background: #ffffff;
-        color: #111111;
-        font-size: 11px;
-        font-weight: 750;
-      }
-
-      .sticker-deck-action[hidden],
       .sticker-deck-note[hidden] {
         display: none;
       }
@@ -787,11 +799,20 @@
       }
 
       @media (max-aspect-ratio: 4 / 3) {
+        .hero {
+          min-height: auto;
+        }
+
+        .hero-center {
+          margin-top: clamp(150px, 19vw, 240px);
+        }
+
         .site > .sticker-section {
           --sticker-grid-size: 4.604vw;
+          min-height: auto;
           background-position:
             0.938vw
-            calc((100svh - 75vw) / 2 + 4.438vw);
+            4.438vw;
         }
       }
 
@@ -1081,23 +1102,6 @@
         line-height: 1.2;
       }
 
-      .projects-section {
-        background: #eeeeec;
-      }
-
-      .projects-section .section-head {
-        grid-template-columns: 1fr;
-        justify-items: center;
-      }
-
-      .projects-section .section-head h2 {
-        font-size: clamp(28px, 3.2vw, 46px);
-      }
-
-      .projects-section .section-frame {
-        width: min(100%, 133.333svh);
-      }
-
       .section-head {
         display: grid;
         grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.28fr);
@@ -1123,105 +1127,6 @@
         line-height: 1.7;
         justify-self: end;
         text-wrap: pretty;
-      }
-
-      .band-stack {
-        width: 100%;
-      }
-
-      .project-band {
-        position: sticky;
-        top: calc(clamp(96px, 12vh, 132px) + var(--stack-offset));
-        z-index: var(--stack-z);
-        display: grid;
-        grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
-        align-items: stretch;
-        height: 480px;
-        margin-bottom: clamp(110px, 15vh, 160px);
-        overflow: hidden;
-        border: 1px solid rgba(28, 28, 28, 0.09);
-        border-radius: 12px;
-        background: #f5f5f3;
-        box-shadow: 0 18px 48px rgba(28, 28, 28, 0.09);
-        opacity: var(--stack-opacity, 1);
-        filter: blur(var(--stack-blur, 0));
-        transform: translateY(var(--stack-shift, 0)) scale(var(--stack-scale, 1));
-        transform-origin: center top;
-        will-change: transform, opacity, filter;
-      }
-
-      .project-band:last-child {
-        margin-bottom: 0;
-      }
-
-      .band-copy {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 8px;
-        min-width: 0;
-        padding: 48px clamp(18px, 2.5vw, 36px) clamp(18px, 2.5vw, 36px);
-      }
-
-      .band-name {
-        color: var(--ink);
-        font-size: clamp(20px, 2vw, 30px);
-        font-weight: 650;
-        line-height: 1.15;
-        letter-spacing: 0.01em;
-        transition: transform 240ms var(--ease-out);
-      }
-
-      .band-meta {
-        color: rgba(28, 28, 28, 0.48);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .band-preview {
-        overflow: hidden;
-        margin: 48px 48px 48px 0;
-        border-radius: 8px;
-        background: #ffffff;
-      }
-
-      .band-preview img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: left top;
-      }
-
-      @media (hover: hover) and (pointer: fine) {
-        .project-band:hover .band-name {
-          transform: translateX(6px);
-        }
-      }
-
-      @media (max-width: 900px) {
-        .project-band {
-          position: relative;
-          top: auto;
-          grid-template-columns: 1fr;
-          height: auto;
-          margin-bottom: 24px;
-          opacity: 1;
-          filter: none;
-          transform: none;
-          will-change: auto;
-        }
-
-        .band-copy {
-          padding: 20px;
-        }
-
-        .band-preview {
-          height: 180px;
-          margin: 0;
-        }
       }
 
       .tools-section {
@@ -1500,35 +1405,6 @@
       }
 
       @media (max-width: 900px) {
-        .topbar {
-          grid-template-columns: 1fr auto;
-          top: 20px;
-          width: calc(100% - 40px);
-          padding: 7px 7px 7px 0;
-        }
-
-        body.nav-scrolled .topbar {
-          top: 14px;
-          width: calc(100% - 32px);
-          padding-left: 14px;
-        }
-
-        .nav {
-          display: none;
-        }
-
-        .topbar-actions {
-          gap: 8px;
-        }
-
-        .menu-toggle {
-          display: inline-grid;
-        }
-
-        .mobile-nav {
-          width: min(100vw - 40px, 360px);
-        }
-
         .hero-center {
           margin-top: 150px;
         }
@@ -1580,6 +1456,37 @@
           margin: 0;
         }
 
+      }
+
+      @media (max-width: 640px) {
+        .topbar {
+          grid-template-columns: 1fr auto;
+          top: 20px;
+          width: calc(100% - 40px);
+          padding: 7px 7px 7px 0;
+        }
+
+        body.nav-scrolled .topbar {
+          top: 14px;
+          width: calc(100% - 32px);
+          padding-left: 14px;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .topbar-actions {
+          gap: 8px;
+        }
+
+        .menu-toggle {
+          display: inline-grid;
+        }
+
+        .mobile-nav {
+          width: min(100vw - 40px, 360px);
+        }
       }
 
       @media (max-width: 560px) {
@@ -1678,13 +1585,6 @@
           font-size: 8px;
         }
 
-        .sticker-deck-action {
-          min-width: 88px;
-          min-height: 30px;
-          margin-top: 10px;
-          font-size: 9px;
-        }
-
         .who-copy h2 {
           font-size: 46px;
         }
@@ -1749,7 +1649,6 @@
           </a>
           <nav class="nav" aria-label="主导航">
             <a href="#about">关于我</a>
-            <a href="#projects">我的作品</a>
             <a href="#tools">小工具</a>
           </nav>
           <div class="topbar-actions">
@@ -1767,7 +1666,6 @@
           </div>
           <nav class="mobile-nav" id="mobileNav" aria-label="移动端主导航" hidden>
             <a href="#about">关于我</a>
-            <a href="#projects">我的作品</a>
             <a href="#tools">小工具</a>
           </nav>
         </header>
@@ -1942,7 +1840,6 @@
                   设计产品体验，也偶尔帮复杂系统收拾房间。
                 </p>
                 <p class="sticker-deck-note" id="stickerDeckNote" hidden></p>
-                <a class="sticker-deck-action" id="stickerDeckAction" href="#projects" hidden></a>
               </div>
             </article>
           </div>
@@ -1950,62 +1847,6 @@
           <div class="sticker-interaction-layer" aria-label="可点击贴纸">
             <button class="sticker-hit" type="button" data-sticker-item="portrait" aria-label="程卓人物贴纸" aria-pressed="false" style="--x: 49.5%; --y: 7%; --w: 19%; --h: 27%; --radius: 24px"></button>
           </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="projects" class="section projects-section" aria-labelledby="projectsTitle">
-        <div class="section-frame">
-          <div class="section-head">
-            <h2 id="projectsTitle">Selected Works</h2>
-          </div>
-
-          <div class="band-stack">
-          <a class="project-band" href="work/ai-recruitment.html" style="--stack-offset: 0px; --stack-z: 1">
-            <div class="band-copy">
-              <strong class="band-name">AI 招聘 · 脉脉人才银行</strong>
-              <span class="band-meta">AI 产品 / B 端招聘系统 · 2023 – 2026</span>
-            </div>
-            <div class="band-preview">
-              <img src="assets/portfolio/ai-recruitment-monitor-preview.png" alt="AI 招聘 · 脉脉人才银行项目封面" loading="lazy" />
-            </div>
-          </a>
-          <a class="project-band" href="work/ai-resume.html" style="--stack-offset: 10px; --stack-z: 2">
-            <div class="band-copy">
-              <strong class="band-name">AI 简历优化助手</strong>
-              <span class="band-meta">AI 简历工具 / 移动端 MVP · 2026</span>
-            </div>
-            <div class="band-preview">
-              <img src="assets/portfolio/ai-resume.png" alt="AI 简历优化助手项目封面" loading="lazy" />
-            </div>
-          </a>
-          <a class="project-band" href="work/mofang.html" style="--stack-offset: 20px; --stack-z: 3">
-            <div class="band-copy">
-              <strong class="band-name">58 魔方 · 魔聘系统</strong>
-              <span class="band-meta">企业系统体验升级 / 招聘流程 · 2022 – 2023</span>
-            </div>
-            <div class="band-preview">
-              <img src="assets/portfolio/mofang.png" alt="58 魔方 · 魔聘系统项目封面" loading="lazy" />
-            </div>
-          </a>
-          <a class="project-band" href="work/petloo.html" style="--stack-offset: 30px; --stack-z: 4">
-            <div class="band-copy">
-              <strong class="band-name">Petloo Intelligence</strong>
-              <span class="band-meta">C 端移动体验 / 智能硬件 · 2023</span>
-            </div>
-            <div class="band-preview">
-              <img src="assets/portfolio/petloo.png" alt="Petloo Intelligence 项目封面" loading="lazy" />
-            </div>
-          </a>
-          <a class="project-band" href="work/aigc-explore.html" style="--stack-offset: 40px; --stack-z: 5">
-            <div class="band-copy">
-              <strong class="band-name">AIGC 探索</strong>
-              <span class="band-meta">AI 视觉工作流 / 设计实验 · 2025 – 2026</span>
-            </div>
-            <div class="band-preview">
-              <img src="assets/portfolio/aigc-explore.png" alt="AIGC 探索项目封面" loading="lazy" />
-            </div>
-          </a>
           </div>
         </div>
       </section>
@@ -2078,7 +1919,7 @@
         "让 AI 输出更可控、可解释",
         "整理招聘科技里的关键体验",
         "做一点能真实使用的小工具",
-        "把作品集变成数字自留地",
+        "把个人网站变成数字自留地",
       ];
 
       const topbar = document.querySelector(".topbar");
@@ -2102,7 +1943,6 @@
       const stickerDeckTitle = document.getElementById("stickerDeckTitle");
       const stickerDeckBody = document.getElementById("stickerDeckBody");
       const stickerDeckNote = document.getElementById("stickerDeckNote");
-      const stickerDeckAction = document.getElementById("stickerDeckAction");
       const stickerDeckState = StickerDeck.createState(StickerDeck.cards);
       const stickerHitTargets = [...document.querySelectorAll(".sticker-hit")];
 
@@ -2135,7 +1975,7 @@
       const updateTopbar = () => {
         const compact = window.scrollY > 28;
         const small = window.matchMedia("(max-width: 560px)").matches;
-        const medium = window.matchMedia("(max-width: 900px)").matches;
+        const medium = window.matchMedia("(max-width: 640px)").matches;
         if (!medium && mobileNavOpen) {
           setMobileNavOpen(false);
         }
@@ -2200,12 +2040,6 @@
         stickerDeckBody.textContent = card.body;
         stickerDeckNote.hidden = !card.note;
         stickerDeckNote.textContent = card.note || "";
-        stickerDeckAction.hidden = !card.action;
-
-        if (card.action) {
-          stickerDeckAction.textContent = card.action.label;
-          stickerDeckAction.href = card.action.href;
-        }
 
         stickerDeck.setAttribute(
           "aria-label",
@@ -2356,59 +2190,6 @@
       });
 
       renderStickerDeck();
-
-      const projectBands = [...document.querySelectorAll(".project-band")];
-
-      let projectStackFrame = 0;
-      const updateProjectStack = () => {
-        const useStaticLayout =
-          window.matchMedia("(max-width: 900px)").matches || reducedMotionQuery.matches;
-
-        if (useStaticLayout) {
-          projectBands.forEach((card) => {
-            card.style.removeProperty("--stack-scale");
-            card.style.removeProperty("--stack-opacity");
-            card.style.removeProperty("--stack-blur");
-            card.style.removeProperty("--stack-shift");
-          });
-          return;
-        }
-
-        const baseTop = Math.min(Math.max(window.innerHeight * 0.14, 104), 160);
-        const transitionRange = Math.min(window.innerHeight * 0.42, 420);
-
-        projectBands.forEach((card, index) => {
-          const nextCard = projectBands[index + 1];
-          let progress = 0;
-
-          if (nextCard) {
-            const nextTop = nextCard.getBoundingClientRect().top;
-            const targetTop = baseTop + (index + 1) * 10;
-            progress = Math.min(
-              Math.max((targetTop + transitionRange - nextTop) / transitionRange, 0),
-              1,
-            );
-          }
-
-          card.style.setProperty("--stack-scale", (1 - progress * 0.045).toFixed(4));
-          card.style.setProperty("--stack-opacity", (1 - progress * 0.32).toFixed(3));
-          card.style.setProperty("--stack-blur", `${(progress * 1.2).toFixed(2)}px`);
-          card.style.setProperty("--stack-shift", `${(-progress * 8).toFixed(2)}px`);
-        });
-      };
-
-      const scheduleProjectStack = () => {
-        if (projectStackFrame) return;
-        projectStackFrame = requestAnimationFrame(() => {
-          updateProjectStack();
-          projectStackFrame = 0;
-        });
-      };
-
-      updateProjectStack();
-      window.addEventListener("scroll", scheduleProjectStack, { passive: true });
-      window.addEventListener("resize", scheduleProjectStack);
-      reducedMotionQuery.addEventListener?.("change", updateProjectStack);
 
       phraseButton.addEventListener("click", () => {
         phraseIndex = (phraseIndex + 1) % phrases.length;
