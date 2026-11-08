@@ -20,6 +20,10 @@
   -webkit-backdrop-filter: blur(22px);
   backdrop-filter: blur(22px);
   transform: translateX(-50%);
+  transition:
+    background 180ms var(--ease),
+    border-color 180ms var(--ease),
+    box-shadow 180ms var(--ease);
 }
 
 .site-dock-list {
@@ -125,6 +129,44 @@
   transform: scale(0.94);
 }
 
+.site-dock[data-theme="dark"] {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(28, 28, 28, 0.9);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.site-dock[data-theme="dark"] .site-dock-external {
+  border-left-color: rgba(255, 255, 255, 0.16);
+}
+
+.site-dock[data-theme="dark"] .site-dock-link {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(251, 251, 250, 0.84);
+}
+
+.site-dock[data-theme="dark"] .site-dock-link-github img {
+  filter: invert(1);
+}
+
+.site-dock[data-theme="dark"] .site-dock-link[aria-current="location"] {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.site-dock[data-theme="dark"] .site-dock-label {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.site-dock[data-theme="dark"] .site-dock-link:focus-visible {
+  outline-color: var(--paper);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .site-dock-link:hover {
     color: var(--green);
@@ -141,6 +183,17 @@
   .site-dock-link:hover .site-dock-label {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+
+  .site-dock[data-theme="dark"] .site-dock-link:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--paper);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+  }
+
+  .site-dock[data-theme="dark"] .site-dock-link[aria-current="location"]:hover {
+    background: var(--paper);
+    color: var(--ink);
   }
 }
 
@@ -184,6 +237,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-dock,
   .site-dock-link,
   .site-dock-label {
     transition: none;
