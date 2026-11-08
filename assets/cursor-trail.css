@@ -1,0 +1,30 @@
+.cursor-trail {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.cursor-trail[hidden] {
+  display: none;
+}
+
+.cursor-trail-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--trail-size);
+  height: var(--trail-size);
+  border-radius: 50%;
+  background: var(--lilac);
+  opacity: var(--trail-alpha);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .cursor-trail {
+    display: none;
+  }
+}
